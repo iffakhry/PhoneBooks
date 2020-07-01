@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PhoneSMKkoding</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
 </resources>

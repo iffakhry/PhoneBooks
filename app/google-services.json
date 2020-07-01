@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "300475166563",
+    "firebase_url": "https://phone-books-b3fd5.firebaseio.com",
+    "project_id": "phone-books-b3fd5",
+    "storage_bucket": "phone-books-b3fd5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300475166563:android:b6ece441147174a6f2ed56",
+        "android_client_info": {
+          "package_name": "com.example.phonesmkkoding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300475166563-pmi7288usmgk6ucgg0up9rkdscrl8us4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.phonesmkkoding",
+            "certificate_hash": "8f09c657ea897d262465f46f149083bac591cf72"
+          }
+        },
+        {
+          "client_id": "300475166563-uldq9lsidcfib6rbn4bjbe0h3s7v5h7p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOSZryGoGWvfQlIDqjkAU5EK9i9sjYXbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300475166563-uldq9lsidcfib6rbn4bjbe0h3s7v5h7p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
