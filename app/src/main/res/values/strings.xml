@@ -2,4 +2,6 @@
     <string name="app_name">PhoneSMKkoding</string>
     <string name="profile">Profile</string>
     <string name="logout">Logout</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="fcm_message">Phone Books Notifikasi</string>
 </resources>
