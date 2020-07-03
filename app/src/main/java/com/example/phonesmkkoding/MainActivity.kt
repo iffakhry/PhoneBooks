@@ -3,13 +3,17 @@ package com.example.phonesmkkoding
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.phonesmkkoding.adapter.PhoneAdapter
 import com.example.phonesmkkoding.model.PhoneModel
+import com.example.phonesmkkoding.viewmodel.PhoneActivityViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var ref : DatabaseReference
     var dataPhone: MutableList<PhoneModel> = ArrayList()
     private var adapter: PhoneAdapter? = null
+    private val viewModel by viewModels<PhoneActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +35,11 @@ class MainActivity : AppCompatActivity() {
         rv_phone.layoutManager = LinearLayoutManager(this)
         adapter = PhoneAdapter(this, dataPhone)
         rv_phone.adapter = adapter
+
+        viewModel.init(this)
+        viewModel.allPhone.observe(this, Observer { hospitals ->
+            hospitals?.let { adapter?.setData(it) }
+        })
 
     }
 
@@ -46,9 +56,12 @@ class MainActivity : AppCompatActivity() {
                 dataPhone = ArrayList()
                 for (snapshot in dataSnapshot.children) {
 
-                    val rs = snapshot.getValue(PhoneModel::class.java)
-                    rs?.key = (snapshot.key!!)
+                    val phone = snapshot.getValue(PhoneModel::class.java)
+                    phone?.key = (snapshot.key!!)
+                    dataPhone.add(phone!!)
                 }
+//                adapter?.setData(dataPhone)
+                viewModel.insertAll(dataPhone)
             }
         })
     }
