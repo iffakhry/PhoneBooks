@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -31,9 +32,19 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.menu_logout -> {
                 auth.signOut()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (auth.currentUser == null){
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
     }
 }
