@@ -1,20 +1,24 @@
 package com.example.phonesmkkoding
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
-
 
 class LoginActivity : AppCompatActivity() {
 
     private var auth: FirebaseAuth? = null
     private val RC_SIGN_IN = 1
+    private val CALL_PERMISSIONS_REQUEST = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +44,39 @@ class LoginActivity : AppCompatActivity() {
             intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        cekPermission()
+    }
+
+    private fun cekPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermissions(
+                    arrayOf(Manifest.permission.CALL_PHONE),
+                    CALL_PERMISSIONS_REQUEST
+                )
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == CALL_PERMISSIONS_REQUEST) {
+            if (grantResults.size == 1 &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED
+            ) {
+                Toast.makeText(this, "Call permission granted", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Call permission denied", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
 
