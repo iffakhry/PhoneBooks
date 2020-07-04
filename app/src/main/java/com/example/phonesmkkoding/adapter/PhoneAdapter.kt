@@ -20,8 +20,8 @@ import com.google.firebase.database.DatabaseReference
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.phone_item.view.*
 
-class PhoneAdapter(private val context: Context, private var list: List<PhoneModel>) :
-    RecyclerView.Adapter<PhoneAdapter.ViewHolder>() {
+
+class PhoneAdapter(private val context: Context, private var list: List<PhoneModel>): RecyclerView.Adapter<PhoneAdapter.ViewHolder>(){
 
     lateinit var ref: DatabaseReference
 
@@ -34,7 +34,7 @@ class PhoneAdapter(private val context: Context, private var list: List<PhoneMod
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(list.get(position))
+        holder.bindItem(list[position])
 
         holder.itemView.setOnClickListener { view ->
             val action = arrayOf("Panggil", "Detail")

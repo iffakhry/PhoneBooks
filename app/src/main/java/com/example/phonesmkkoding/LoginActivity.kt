@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.firebase.ui.auth.AuthUI
@@ -20,9 +21,12 @@ class LoginActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 1
     private val CALL_PERMISSIONS_REQUEST = 1
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        getPermissionToCall()
 
         progress.visibility = View.GONE
         login.setOnClickListener {
@@ -92,6 +96,46 @@ class LoginActivity : AppCompatActivity() {
                 progress.visibility = View.GONE
                 Toast.makeText(this, "Login Gagal", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private val CALL_PERMISSIONS_REQUEST = 1
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun getPermissionToCall() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(
+                arrayOf(Manifest.permission.CALL_PHONE),
+                CALL_PERMISSIONS_REQUEST
+            )
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == CALL_PERMISSIONS_REQUEST) {
+            if (grantResults.size == 1 &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED
+            ) {
+                Toast.makeText(this, "Read Contacts permission granted", Toast.LENGTH_SHORT).show()
+            } else {
+                val showRationale =
+                    shouldShowRequestPermissionRationale( Manifest.permission.CALL_PHONE )
+                if (showRationale) {
+                    // lakukan sesuatu disini
+                } else {
+                    Toast.makeText(this, "Read Contacts permission denied", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
 }
