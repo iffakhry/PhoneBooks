@@ -23,4 +23,7 @@ interface PhoneDao {
 
     @Query("DELETE FROM phone")
     suspend fun deleteAll()
+
+    @Query("SELECT * FROM phone WHERE nama LIKE :query")
+    fun getPencarian (query:String):LiveData<List<PhoneModel>>
 }

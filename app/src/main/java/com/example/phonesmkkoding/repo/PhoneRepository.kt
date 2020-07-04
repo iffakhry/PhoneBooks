@@ -27,4 +27,8 @@ class PhoneRepository (private val phoneDao: PhoneDao) {
     suspend fun delete(phone: PhoneModel) {
         phoneDao.delete(phone)
     }
+
+    fun search(string: String): LiveData<List<PhoneModel>> {
+        return phoneDao.getPencarian(string)
+    }
 }
