@@ -25,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        getPermissionToReadUserContacts()
 
         getPermissionToCall()
 
@@ -67,12 +68,25 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private val CALL_PERMISSIONS_REQUEST = 1
+<<<<<<< HEAD
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun getPermissionToCall() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
             != PackageManager.PERMISSION_GRANTED
         ) {
+=======
+    
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun getPermissionToReadUserContacts() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.CALL_PHONE
+                )
+            )
+>>>>>>> master
             requestPermissions(
                 arrayOf(Manifest.permission.CALL_PHONE),
                 CALL_PERMISSIONS_REQUEST
@@ -90,14 +104,30 @@ class LoginActivity : AppCompatActivity() {
             if (grantResults.size == 1 &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED
             ) {
+<<<<<<< HEAD
                 Toast.makeText(this, "Call permission granted", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Call permission denied", Toast.LENGTH_SHORT)
                     .show()
+=======
+                Toast.makeText(this, "Read Contacts permission granted", Toast.LENGTH_SHORT).show()
+            } else {
+                val showRationale =
+                    shouldShowRequestPermissionRationale( Manifest.permission.CALL_PHONE )
+                if (showRationale) {
+                    // lakukan sesuatu disini
+                } else {
+                    Toast.makeText(this, "Read Contacts permission denied", Toast.LENGTH_SHORT)
+                        .show()
+                }
+>>>>>>> master
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 }

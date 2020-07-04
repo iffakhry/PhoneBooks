@@ -2,21 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:background="@color/colorAccent"
+    android:paddingBottom="1dp"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/nama"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="nama"/>
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/nama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:fontFamily="@font/sf_bold"
+            android:textColor="@color/black"
+            android:text="nama"/>
 
-    <TextView
-        android:id="@+id/nomor"
-        android:layout_width="match_parent"
-        android:textSize="16sp"
-        android:layout_height="wrap_content"
-        android:text="nomor"/>
+        <TextView
+            android:id="@+id/nomor"
+            android:layout_width="match_parent"
+            android:fontFamily="@font/google_sans_regular"
+            android:textSize="16sp"
+            android:layout_height="wrap_content"
+            android:text="nomor"/>
+
+    </LinearLayout>
 
 </LinearLayout>
