@@ -8,7 +8,7 @@ import com.example.phonesmkkoding.dao.PhoneDao
 import com.example.phonesmkkoding.model.PhoneModel
 
 
-@Database(entities = arrayOf(PhoneModel::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(PhoneModel::class), version = 2, exportSchema = false)
 public abstract class PhoneDatabase: RoomDatabase()  {
 
     abstract fun phoneDao(): PhoneDao

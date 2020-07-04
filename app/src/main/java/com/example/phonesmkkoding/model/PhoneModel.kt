@@ -12,7 +12,7 @@ data class PhoneModel(
     var kota: String,
     var provinsi: String,
     var latitude: String,
-    var longtitude: String,
+    var longitude: String,
     @PrimaryKey var key: String
 ){
     constructor(): this("", "", "", "", "", "", "", "", "0")
