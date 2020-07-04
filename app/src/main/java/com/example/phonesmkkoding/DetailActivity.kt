@@ -67,22 +67,13 @@ class DetailActivity : AppCompatActivity() {
                 Manifest.permission.CALL_PHONE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-<<<<<<< HEAD
-
-            Toast.makeText(this, "You need allow Permission", Toast.LENGTH_LONG).show()
-        } else {
-=======
             Toast.makeText(this, "You need allow Permission", Toast.LENGTH_LONG).show()
         }else {
->>>>>>> master
             startActivity(intent)
         }
 
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> master
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {

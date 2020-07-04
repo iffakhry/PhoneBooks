@@ -12,10 +12,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-<<<<<<< HEAD
-=======
-import androidx.core.content.ContextCompat.startActivity
->>>>>>> master
 import androidx.recyclerview.widget.RecyclerView
 import com.example.phonesmkkoding.DetailActivity
 import com.example.phonesmkkoding.R
