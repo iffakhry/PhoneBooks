@@ -1,14 +1,14 @@
 package com.example.phonesmkkoding
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.phonesmkkoding.adapter.PhoneAdapter
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private val auth = FirebaseAuth.getInstance()
-    lateinit var ref : DatabaseReference
+    lateinit var ref: DatabaseReference
     var dataPhone: MutableList<PhoneModel> = ArrayList()
     private var adapter: PhoneAdapter? = null
     private val viewModel by viewModels<PhoneActivityViewModel>()
@@ -30,26 +30,56 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        viewModel.init(this)
         getData()
+        viewModel.allPhone.observe(this, Observer { hospitals ->
+            hospitals?.let { adapter?.setData(it) }
+        })
 
         rv_phone.layoutManager = LinearLayoutManager(this)
         adapter = PhoneAdapter(this, dataPhone)
         rv_phone.adapter = adapter
 
-        viewModel.init(this)
-        viewModel.allPhone.observe(this, Observer { hospitals ->
-            hospitals?.let { adapter?.setData(it) }
-        })
+        search_bar.isSubmitButtonEnabled = true
+        search_bar.queryHint = "Pencarian Berdasarkan Nama..."
+        search_bar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                getQueryData(query)
+                return true
+            }
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                getQueryData(newText)
+                return true
+            }
+        })
     }
 
-    private fun getData(){
+    private fun getQueryData(query: String?) {
+        val isi: String = "%$query%"
+        viewModel.search(isi).observe(this, object : Observer<List<PhoneModel>> {
+            override fun onChanged(phones: List<PhoneModel>?) {
+                if (phones != null) {
+                    adapter?.setData(phones)
+                } else {
+                    return
+                }
+            }
+
+        })
+    }
+
+    private fun getData() {
         Toast.makeText(this@MainActivity, "Mohon tunggu sebentar.....", Toast.LENGTH_SHORT).show()
         val getUserID: String = auth.currentUser?.uid.toString()
-        ref  = FirebaseDatabase.getInstance().getReference()
+        ref = FirebaseDatabase.getInstance().getReference()
         ref.child("Phone").addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                Toast.makeText(this@MainActivity, "Database Error... \n" +p0.message.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@MainActivity,
+                    "Database Error... \n" + p0.message.toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -90,7 +120,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (auth.currentUser == null){
+        if (auth.currentUser == null) {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }

@@ -29,4 +29,8 @@ class PhoneActivityViewModel : ViewModel() {
         repository.deleteAll()
         repository.insertAll(phone)
     }
+
+    fun search(query: String): LiveData<List<PhoneModel>>{
+        return repository.search(query)
+    }
 }
