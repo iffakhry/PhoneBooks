@@ -5,8 +5,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NavUtils
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
@@ -15,6 +18,9 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
         getData()
 
         btn_maps.setOnClickListener { toMaps() }
@@ -60,15 +66,23 @@ class DetailActivity : AppCompatActivity() {
                 Manifest.permission.CALL_PHONE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
+            Toast.makeText(this, "You need allow Permission", Toast.LENGTH_LONG).show()
+        }else {
+            startActivity(intent)
         }
-        startActivity(intent)
+
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                if (parentActivityIntent == null) {
+                    onBackPressed()
+                } else {
+                    NavUtils.navigateUpFromSameTask(this)
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
