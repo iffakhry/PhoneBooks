@@ -67,8 +67,9 @@ class DetailActivity : AppCompatActivity() {
                 Manifest.permission.CALL_PHONE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            Toast.makeText(this, "You need allow Permission", Toast.LENGTH_LONG).show()
-        }else {
+            Toast.makeText(this, "You need to allow call permission in this app", Toast.LENGTH_LONG).show()
+        }else{
+            Toast.makeText(this, "Memanggil...", Toast.LENGTH_LONG).show()
             startActivity(intent)
         }
 

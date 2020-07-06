@@ -42,20 +42,16 @@ class PhoneAdapter(private val context: Context, private var list: List<PhoneMod
             alert.setItems(action) { dialog, i ->
                 when (i) {
                     0 -> {
-                        val intent =
-                            Intent(Intent.ACTION_CALL, Uri.parse("tel:${list[position].no_telp}"))
+                        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:${list[position].no_telp}"))
                         if (ActivityCompat.checkSelfPermission(
                                 view.context,
                                 Manifest.permission.CALL_PHONE
                             ) != PackageManager.PERMISSION_GRANTED
                         ) {
-                            Toast.makeText(
-                                context, "Panggil",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            context.startActivity(intent)
+                            Toast.makeText(view.context, "You need to allow call permission in this app", Toast.LENGTH_LONG).show()
                         }else{
-                            Toast.makeText(view.context, "Call permission granted", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Memanggil...", Toast.LENGTH_LONG).show()
+                            context.startActivity(intent)
                         }
                     }
                     1 -> {
