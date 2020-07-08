@@ -12,4 +12,4 @@ A phone book App that contains institutions or important agencies of the city of
 [Link here](https://drive.google.com/file/d/1ROa-n5hMGrORNqWaEe63TnEYCpeq_-Tf/view?usp=sharing)
 
 ## Preview
-https://github.com//iffakhry/PhoneBooks/blob/master/Preview/PhoneBooks.png
+![alt text](https://raw.githubusercontent.com/iffakhry/PhoneBooks/master/Preview/Phonebooks.png)
